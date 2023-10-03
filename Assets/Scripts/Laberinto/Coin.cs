@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    public int value = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,8 @@ public class Coin : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
+            CoinCounter.instance.IncreaseCoins(value);
+
         }
             
     }
