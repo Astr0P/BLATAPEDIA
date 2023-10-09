@@ -60,10 +60,10 @@ public class End : MonoBehaviour
             time = 100;
         }
     }
+
     public void IncreaseCoins(int v)
     {
         currentCoins += v;
-
         coinText.text = "Amigos: " + currentCoins.ToString();
     }
 

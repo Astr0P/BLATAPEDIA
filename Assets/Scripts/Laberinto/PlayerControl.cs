@@ -5,17 +5,25 @@ using UnityEngine.VFX;
 
 public class PlayerControl : MonoBehaviour
 {
-    float movX, movY;
+    
+    public static PlayerControl instance;
     Rigidbody2D player;
+    float movX, movY;
     float velocidad = 3f;
-    public bool stuck = false;
     float stucktimer = 0f;
+    bool stuck = false;
+    bool small = false;
     Renderer m_Renderer;
     AudioSource FX;
     private SpriteRenderer spriteRenderer;
     private PolygonCollider2D polygonCollider;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        instance = this;
+    }
+    
     void Start()
     {
         m_Renderer = GetComponent<Renderer>();
@@ -31,13 +39,21 @@ public class PlayerControl : MonoBehaviour
         movY = Input.GetAxis("Vertical");
         Vector2 movimiento = new Vector2(movX, movY);
         transform.Translate(movimiento * Time.deltaTime * velocidad);
-        if (movX > 0 )
+        if (movX > 0 && small == false)
         {
             transform.localScale = new Vector3(0.8068f, 0.8068f, 0.8068f);
         }
-        else if (movX < 0 ) 
+        else if (movX > 0 && small == true)
+        {
+            transform.localScale = new Vector3(0.6051f, 0.6051f, 0.6051f);
+        }
+        else if (movX < 0 && small == false) 
         {
             transform.localScale = new Vector3(-0.8068f, 0.8068f, 0.8068f);
+        }
+        else if (movX < 0 && small == true)
+        {
+            transform.localScale = new Vector3(-0.6051f, 0.6051f, 0.6051f);
         }
         
         if (stuck == true)
@@ -63,6 +79,11 @@ public class PlayerControl : MonoBehaviour
             m_Renderer.material.color = Color.red;
 
         }
+    }
+
+    public void MakeSmaller()
+    {
+        small = true;
     }
     
 }
