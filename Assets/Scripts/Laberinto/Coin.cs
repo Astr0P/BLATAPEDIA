@@ -5,11 +5,12 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public int value = 1;
+    AudioSource FX;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        FX = GameObject.Find("RoachPickUp").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,8 +22,10 @@ public class Coin : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            FX.Play();
             Destroy(gameObject);
-            CoinCounter.instance.IncreaseCoins(value);
+            
+            End.instance.IncreaseCoins(value);
 
         }
             
