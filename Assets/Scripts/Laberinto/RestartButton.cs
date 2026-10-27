@@ -33,6 +33,8 @@ public class RestartButton : MonoBehaviour
     }
     public void EndTheGame()
     {
+        Application.ExitPlaymode();
         Application.Quit();
+        Debug.Log("Game is quitting");
     }
 }
